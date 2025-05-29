@@ -8,9 +8,17 @@ const imageUrl = `${dataDragoUrl}/${version}/img/item`;
 
 const revalidate = 60 * 60 * 24 * 7;
 
+interface RiotItem {
+  name: string;
+  plaintext: string;
+  gold: { base: number };
+  tags: string[];
+  image: { full: string };
+}
+
 export const GET = async () => {
-  let data = [] as ItemBase[];
-  let lastError = null;
+  let data: ItemBase[] = [];
+  let lastError: unknown = null;
   const cookieStore = await cookies();
   const lang = cookieStore.get("lang")?.value || "en_US";
 
@@ -23,27 +31,25 @@ export const GET = async () => {
     );
 
     if (res.ok) {
-      data = await res.json();
-      data = Object.values(data.data).map((item: any) => {
-        return {
-          name: item.name,
-          plaintext: item.plaintext,
-          gold: item.gold.base,
-          tags: item.tags,
-          image: `${imageUrl}/${item.image.full}`,
-        };
-      });
+      const riotData: { data: Record<string, RiotItem> } = await res.json();
+      data = Object.values(riotData.data).map((item) => ({
+        name: item.name,
+        plaintext: item.plaintext,
+        gold: item.gold.base,
+        tags: [item.tags[0] ?? ""], // Eğer ItemBase.tags: [string] ise, yoksa item.tags
+        image: `${imageUrl}/${item.image.full}`,
+      }));
     } else {
-      lastError = res.text();
+      lastError = await res.text();
     }
   } catch (error) {
     lastError = error;
   }
 
-  if (data) return NextResponse.json(data, { status: 200 });
+  if (data.length > 0) return NextResponse.json(data, { status: 200 });
 
   return NextResponse.json(
-    { error: "Failed to fetch champion list", lastError },
+    { error: "Failed to fetch item list", lastError },
     { status: 500 }
   );
 };

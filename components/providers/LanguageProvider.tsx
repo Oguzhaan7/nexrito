@@ -2,12 +2,14 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import type { Lang } from "@/types/common/Lang.ts";
+import type { Lang } from "@/types/common/Lang";
+
+type LocaleType = Record<string, string>;
 
 const LanguageContext = createContext<{
   lang: Lang;
   setLang: (lang: Lang) => void;
-  locale: Record<string, string> | null;
+  locale: LocaleType | null;
 }>({
   lang: "en_US",
   setLang: () => {},
@@ -20,7 +22,7 @@ export const LanguageProvider = ({
   children: React.ReactNode;
 }) => {
   const [lang, setLangState] = useState<Lang>("en_US");
-  const [locale, setLocale] = useState<any>(null);
+  const [locale, setLocale] = useState<LocaleType | null>(null);
 
   useEffect(() => {
     const stored = Cookies.get("lang") as Lang | undefined;
@@ -28,7 +30,9 @@ export const LanguageProvider = ({
   }, []);
 
   useEffect(() => {
-    import(`@/locales/${lang}.json`).then(setLocale);
+    import(`@/locales/${lang}.json`).then((mod) =>
+      setLocale(mod.default ?? mod)
+    );
   }, [lang]);
 
   const setLang = (newLang: Lang) => {

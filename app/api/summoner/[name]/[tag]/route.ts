@@ -11,10 +11,10 @@ export const GET = async (
 ) => {
   let puuid;
 
-  const { name, tag } = await params;
+  const { name, tag } = params;
 
   if (!name || !tag)
-    return NextResponse.json({ error: "Missing or tag", status: 400 });
+    return NextResponse.json({ error: "Missing name or tag", status: 400 });
 
   try {
     const resRiotId = await fetch(
@@ -23,7 +23,7 @@ export const GET = async (
       )}/${encodeURIComponent(tag)}`,
       {
         headers: {
-          "X-Riot-Token": RIOT_API_KEY,
+          "X-Riot-Token": RIOT_API_KEY ?? "",
         },
       }
     );
@@ -43,7 +43,7 @@ export const GET = async (
       `https://tr1.${BASE_URL}/lol/summoner/v4/summoners/by-puuid/${puuid}`,
       {
         headers: {
-          "X-Riot-Token": RIOT_API_KEY,
+          "X-Riot-Token": RIOT_API_KEY ?? "",
         },
       }
     );
@@ -59,6 +59,6 @@ export const GET = async (
     const profileData = await resProfile.json();
     return NextResponse.json(profileData as SummonerBase, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: error }, { status: 500 });
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 };
