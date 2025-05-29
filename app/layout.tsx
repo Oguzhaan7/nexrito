@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@/styles/globals.css";
+import { Bolt } from "lucide-react";
+import { HeaderMenu } from "@/components/layout/Menu";
+import { LanguageProvider } from "@/components/providers/LanguageProvider";
+import { ReactQueryProvider } from "@/components/providers/ReactQueryProvider";
+import Footer from "@/components/layout/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +30,33 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sans`}
       >
-        {children}
+        <LanguageProvider>
+          <ReactQueryProvider>
+            <div className="flex w-full bg-background">
+              <div className="bg-background text-foreground min-h-screen w-full flex flex-col">
+                <div className="flex   justify-center max-h-30 md:max-h-24 px-6 border-b border-border ">
+                  <div className="w-full max-w-screen-2xl flex flex-col md:flex-row gap-4 py-6 justify-start lg:justify-between items-center">
+                    <div className="flex items-center gap-2 text-primary">
+                      <Bolt size={32} />
+                      <span className="font-bold text-2xl tracking-wide">
+                        Nexrito
+                      </span>
+                    </div>
+                    <HeaderMenu />
+                  </div>
+                </div>
+                <div className="flex flex-1 justify-center w-full">
+                  <div className="flex flex-1 w-full max-w-screen-2xl ">
+                    {children}
+                  </div>
+                </div>
+                <Footer />
+              </div>
+            </div>
+          </ReactQueryProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
