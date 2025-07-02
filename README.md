@@ -1,6 +1,20 @@
 # Nexrito - League of Legends Stats & Information
 
-A modern web application built with Next.js that provides comprehensive information about League of Legends champions, items, and summoner statistics.
+A modern, high-performance web application built with Next.js 15 that provides comprehensive information about League of Legends champions, items, and summoner statistics with real-time data integration.
+
+## 🚀 Live Demo
+
+**[View Live Application](https://nexrito.vercel.app/)**
+
+## 📊 Technical Overview
+
+- **Performance**: Built with Next.js 15 App Router for optimal performance and SEO
+- **Type Safety**: 100% TypeScript coverage with strict mode enabled
+- **Caching Strategy**: Intelligent caching with React Query and Next.js ISR
+- **API Integration**: Efficient Riot Games API consumption with error handling
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Internationalization**: Multi-language support with client-side translation
+- **Modern Architecture**: Component-based design with custom hooks
 
 ## Features
 
@@ -20,19 +34,29 @@ A modern web application built with Next.js that provides comprehensive informat
 
 ### Core
 
-- **Framework**: Next.js (App Router) - React framework for production
-- **Language**: TypeScript - For type-safe code
+- **Framework**: Next.js 15.1.8 (App Router) - React framework for production
+- **Runtime**: React 19 - Latest React with concurrent features
+- **Language**: TypeScript 5 - For type-safe code with strict mode
 - **Package Manager**: pnpm - Fast, disk space efficient package manager
 
 ### Frontend
 
 - **Styling**:
-  - Tailwind CSS - Utility-first CSS framework
+  - Tailwind CSS 3.4.1 - Utility-first CSS framework
+  - Tailwind Merge - For efficient class merging
+  - Tailwindcss Animate - For smooth animations
+  - Class Variance Authority - For component variants
   - Shadcn/ui - Re-usable components built with Radix UI and Tailwind
-  - CSS Modules - For component-level styling
+- **UI Components**:
+  - @radix-ui/react-dropdown-menu - Accessible dropdown menus
+  - @radix-ui/react-navigation-menu - Navigation components
+  - @radix-ui/react-popover - Popover components
+  - @radix-ui/react-tabs - Tab components
+  - Lucide React - Beautiful icon library
 - **State Management**:
-  - React Query - For server state management and caching
-  - React Context - For global state management
+  - @tanstack/react-query 5.77.2 - Server state management and caching
+  - React Context - Global state management
+  - js-cookie - Cookie management for user preferences
 - **Internationalization**:
   - Custom i18n implementation with JSON files
   - Language switcher with SVG flags
@@ -52,6 +76,20 @@ A modern web application built with Next.js that provides comprehensive informat
 - **TypeScript** - For static type checking
 - **PostCSS** - For processing Tailwind CSS
 - **next-env** - For environment type declarations
+
+### Architecture & Performance
+
+- **App Router**: Next.js 15 App Router for enhanced performance
+- **Static Generation**: ISR for champion and item data
+- **Server Components**: Leverage React Server Components
+- **Streaming**: React 19 concurrent features for better UX
+- **Bundle Optimization**: Tree shaking and code splitting
+- **Image Optimization**: Next.js Image component with WebP support
+- **API Routes**: Edge Runtime for faster response times
+- **Caching Strategy**: 
+  - React Query for client-side caching
+  - Next.js ISR for static data
+  - HTTP cache headers for CDN optimization
 
 ### File Structure
 
