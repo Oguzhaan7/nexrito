@@ -7,11 +7,11 @@ const BASE_URL = process.env.BASE_URL;
 
 export const GET = async (
   req: NextRequest,
-  { params }: { params: { name: string; tag: string } }
+  { params }: { params: Promise<{ name: string; tag: string }> }
 ) => {
   let puuid;
 
-  const { name, tag } = params;
+  const { name, tag } = await params;
 
   if (!name || !tag)
     return NextResponse.json({ error: "Missing name or tag", status: 400 });
